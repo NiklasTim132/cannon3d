@@ -174,6 +174,12 @@ class FlyingObject(pygame.sprite.Sprite):
             downkey = pygame.K_k
             leftkey = pygame.K_j
             rightkey = pygame.K_l
+        if self.control_method == "tfgh":
+            keyboard = True
+            upkey = pygame.K_t
+            downkey = pygame.K_g
+            leftkey = pygame.K_f
+            rightkey = pygame.K_h
         
         
         if keyboard:
@@ -405,7 +411,7 @@ class PygView():
         self.player2 = Spaceship(x=400, y=200, color=(100,200,100), bounce_on_edge=True, control_method = "ijkl", has_hitpointbar=True)
         #self.test1 = FlyingObject(bounce_on_edge=True, control_method = "cursor")
         self.turret1 = Turret(x=300, y= 300, speed = 0)
-        self.cannon1 = Cannon(x=200, y= 100, color=(0,0,0),speed=0)
+        self.cannon1 = Cannon(x=200, y= 100, color=(0,0,0),speed=0, bounce_on_edge=True, control_method="tfgh")
 
     def paint(self):
         """painting on the surface"""
@@ -470,6 +476,9 @@ class PygView():
                     if event.key == pygame.K_SPACE:
                         if self.player2 in self.shipgroup:
                             Rocket(mothership=self.player2, speed=100)
+                    if event.key == pygame.K_r:
+                        if self.cannon1 in self.cannongroup:
+                            Rocket(mothership=self.cannon1, speed=100)
                 
                     
                     #if event.key == pygame.K_RETURN:
