@@ -341,6 +341,15 @@ class Spaceship(FlyingObject):
         self.image.set_colorkey((0,0,0))
         self.image = self.image.convert_alpha() # faster blitting with transparent color
         
+class Cannon(FlyingObject):
+    
+    
+    
+    def create_image(self):
+        self.image = pygame.Surface((100, 20))
+        pygame.draw.polygon(self.image, self.color, ((0,0), (50,0), (50, 20), (0,50), (0,0)))  
+        self.image.set_colorkey((255, 0, 0))
+        self.image =self.image.convert_alpha()      
         
 class Turret(FlyingObject):
     
@@ -383,17 +392,20 @@ class PygView():
         self.shipgroup = pygame.sprite.Group()
         self.rocketgroup = pygame.sprite.Group()
         self.bargroup = pygame.sprite.Group()
+        self.cannongroup = pygame.sprite.Group()
         #...allocate sprites to groups
         Flytext.groups = self.allgroup
         Hitpointbar.groups = self.allgroup, self.bargroup
         FlyingObject.groups = self.allgroup
         Spaceship.groups = self.allgroup, self.shipgroup
         Rocket.groups = self.allgroup, self.rocketgroup
+        Cannon.groups = self.allgroup, self.cannongroup
         # ... create the sprites ...
         self.player1 = Spaceship(x=100, y=200, color=(0,200,0), bounce_on_edge=True, control_method="wasd", has_hitpointbar=True)
         self.player2 = Spaceship(x=400, y=200, color=(100,200,100), bounce_on_edge=True, control_method = "ijkl", has_hitpointbar=True)
         #self.test1 = FlyingObject(bounce_on_edge=True, control_method = "cursor")
         self.turret1 = Turret(x=300, y= 300, speed = 0)
+        self.cannon1 = Cannon(x=200, y= 100, color=(0,0,0),speed=0)
 
     def paint(self):
         """painting on the surface"""
